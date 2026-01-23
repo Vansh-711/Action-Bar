@@ -1,0 +1,222 @@
+[
+  {
+    "id": 0,
+    "image_path": "eval_data/image_0.png",
+    "instruction": "Tap the Search Maps field.",
+    "ground_truth_bbox": [
+      33,
+      75,
+      534,
+      132
+    ]
+  },
+  {
+    "id": 1,
+    "image_path": "eval_data/image_1.png",
+    "instruction": "Tap the Home favorite to add it.",
+    "ground_truth_bbox": [
+      25,
+      318,
+      555,
+      388
+    ]
+  },
+  {
+    "id": 2,
+    "image_path": "eval_data/image_2.png",
+    "instruction": "Tap the Work favorite.",
+    "ground_truth_bbox": [
+      25,
+      399,
+      554,
+      466
+    ]
+  },
+  {
+    "id": 3,
+    "image_path": "eval_data/image_3.png",
+    "instruction": "Click the Add Guide button.",
+    "ground_truth_bbox": [
+      28,
+      509,
+      553,
+      548
+    ]
+  },
+  {
+    "id": 4,
+    "image_path": "eval_data/image_4.png",
+    "instruction": "Click the Clear Recents link.",
+    "ground_truth_bbox": [
+      30,
+      961,
+      186,
+      992
+    ]
+  },
+  {
+    "id": 5,
+    "image_path": "eval_data/image_5.png",
+    "instruction": "Tap the Greenwich label on the map.",
+    "ground_truth_bbox": [
+      1579,
+      1035,
+      1713,
+      1074
+    ]
+  },
+  {
+    "id": 6,
+    "image_path": "eval_data/image_6.png",
+    "instruction": "Click on The Regent's Park label.",
+    "ground_truth_bbox": [
+      1183,
+      768,
+      1375,
+      829
+    ]
+  },
+  {
+    "id": 7,
+    "image_path": "eval_data/image_7.png",
+    "instruction": "Tap the Enfield label on the map.",
+    "ground_truth_bbox": [
+      1400,
+      178,
+      1488,
+      206
+    ]
+  },
+  {
+    "id": 8,
+    "image_path": "eval_data/image_8.png",
+    "instruction": "Tap the Barnet label on the map.",
+    "ground_truth_bbox": [
+      891,
+      464,
+      985,
+      498
+    ]
+  },
+  {
+    "id": 9,
+    "image_path": "eval_data/image_9.png",
+    "instruction": "Click on the Wanstead Park label.",
+    "ground_truth_bbox": [
+      1609,
+      607,
+      1793,
+      646
+    ]
+  },
+  {
+    "id": 10,
+    "image_path": "eval_data/image_10.png",
+    "instruction": "Find the Dartford label on the map.",
+    "ground_truth_bbox": [
+      2263,
+      1181,
+      2417,
+      1224
+    ]
+  },
+  {
+    "id": 11,
+    "image_path": "eval_data/image_11.png",
+    "instruction": "Tap Lullingstone Castle & The World Garden.",
+    "ground_truth_bbox": [
+      2250,
+      1600,
+      2430,
+      1676
+    ]
+  },
+  {
+    "id": 12,
+    "image_path": "eval_data/image_12.png",
+    "instruction": "Tap the Sutton label on the map.",
+    "ground_truth_bbox": [
+      1053,
+      1606,
+      1143,
+      1637
+    ]
+  },
+  {
+    "id": 13,
+    "image_path": "eval_data/image_13.png",
+    "instruction": "Click the minus button.",
+    "ground_truth_bbox": [
+      2642,
+      1730,
+      2684,
+      1770
+    ]
+  },
+  {
+    "id": 14,
+    "image_path": "eval_data/image_14.png",
+    "instruction": "Click the plus icon.",
+    "ground_truth_bbox": [
+      2686,
+      1730,
+      2730,
+      1770
+    ]
+  },
+  {
+    "id": 15,
+    "image_path": "eval_data/image_15.png",
+    "instruction": "Click the compass icon.",
+    "ground_truth_bbox": [
+      2756,
+      1680,
+      2856,
+      1774
+    ]
+  },
+  {
+    "id": 16,
+    "image_path": "eval_data/image_16.png",
+    "instruction": "Find the Chelsea label on the map.",
+    "ground_truth_bbox": [
+      1130,
+      992,
+      1218,
+      1022
+    ]
+  },
+  {
+    "id": 17,
+    "image_path": "eval_data/image_17.png",
+    "instruction": "Click the 3D button.",
+    "ground_truth_bbox": [
+      2472,
+      18,
+      2514,
+      54
+    ]
+  },
+  {
+    "id": 18,
+    "image_path": "eval_data/image_18.png",
+    "instruction": "Click the profile icon.",
+    "ground_truth_bbox": [
+      2820,
+      16,
+      2862,
+      58
+    ]
+  },
+  {
+    "id": 19,
+    "image_path": "eval_data/image_19.png",
+    "instruction": "Click the share icon.",
+    "ground_truth_bbox": [
+      2756,
+      12,
+      2800,
+      58
+    ]
+  }
+]
