@@ -1,4 +1,10 @@
-venv/
 .DS_Store
+venv/
 __pycache__/
 *.pyc
+*.pt
+*.pth
+*.onnx
+*.weights
+.env
+main_brain_model/
