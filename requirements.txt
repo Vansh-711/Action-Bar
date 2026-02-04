@@ -1,0 +1,6 @@
+groq
+python-dotenv
+pyautogui
+Pillow
+# For OCR (if we implement local text reading)
+pytesseract

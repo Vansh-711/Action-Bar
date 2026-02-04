@@ -156,7 +156,7 @@ if __name__ == "__main__":
     import os 
     scanner = ScreenScanner()
     # Test
-    target = "Telegram" 
+    target = "Visual Studio Code" 
     
     print(f"--- READY ---")
     print(f"You have 5 seconds to switch to the window you want to test...")
