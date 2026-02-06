@@ -2,5 +2,10 @@ groq
 python-dotenv
 pyautogui
 Pillow
-# For OCR (if we implement local text reading)
 pytesseract
+pyobjc-framework-ApplicationServices
+pyobjc-framework-Cocoa
+pyobjc-framework-Quartz
+opencv-python
+numpy
+supabase

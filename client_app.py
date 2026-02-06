@@ -86,9 +86,39 @@ def handle_press_key(key):
 
     print(f"   🎹 Pressing: '{key}'")
     
+    # Mac-Specific Volume Fix (AppleScript)
+    if sys.platform == "darwin":
+        if key == "volumeup":
+            subprocess.run(["osascript", "-e", "set volume output volume (output volume of (get volume settings) + 10)"])
+            return True
+        elif key == "volumedown":
+            subprocess.run(["osascript", "-e", "set volume output volume (output volume of (get volume settings) - 10)"])
+            return True
+        elif key == "mute":
+            subprocess.run(["osascript", "-e", "set volume output muted not (output muted of (get volume settings))"])
+            return True
+
     if "+" in key:
         modifiers = key.split("+")
-        pyautogui.hotkey(*modifiers)
+        # ROBUST HOTKEY EXECUTION
+        # Hold down all modifiers
+        for mod in modifiers[:-1]:
+            # Map 'cmd' to 'command' just in case
+            if mod == "cmd": mod = "command"
+            pyautogui.keyDown(mod)
+        
+        time.sleep(0.1) # Tiny pause to let OS register the hold
+        
+        # Press the final key
+        final_key = modifiers[-1]
+        pyautogui.press(final_key)
+        
+        time.sleep(0.1)
+        
+        # Release modifiers in reverse order
+        for mod in reversed(modifiers[:-1]):
+            if mod == "cmd": mod = "command"
+            pyautogui.keyUp(mod)
     else:
         if key not in pyautogui.KEY_NAMES:
              print(f"   ⚠️ WARNING: '{key}' might not be a valid PyAutoGUI key.")
