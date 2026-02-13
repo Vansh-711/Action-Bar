@@ -1,0 +1,85 @@
+PROJECT PIVOT LOG: FROM LINEAR PLANS TO "LEGO" TOOLBOX
+======================================================
+Date: February 4, 2026
+Previous State: 'universal_agent.py' (RAG with Linear Plans)
+New Direction: 'toolbox_agent.py' (Modular Skill Composition)
+
+---
+
+1. THE JOURNEY SO FAR (Post-Master Prompt)
+------------------------------------------
+After consolidating our code into the `master_prompt` folder, we attempted to build a "Self-Learning Hive Mind" using the following strategies:
+
+A. The "Whole Plan" RAG
+   - **Method:** We saved the entire execution log (e.g., 20 steps to open YouTube) into Supabase.
+   - **Retrieval:** When a user asked "Open YouTube", we fetched the similar plan and injected it into the prompt.
+   - **The Problem:** 
+     - **Rigidity:** If the user asked "Open YouTube and search X", the saved plan for "Open YouTube and search Y" was only 80% relevant. The AI struggled to modify the middle of a giant JSON blob.
+     - **Bloat:** The database grew with duplicate steps. Every plan included the same "Open Brave" steps repeated thousands of times.
+     - **Atomic Failure:** If Step 1 (Open Browser) failed due to a hidden Dock, the entire 20-step plan failed.
+
+B. The "Interactive Surgical" Mode (GUI)
+   - **Method:** We built a HUD (`agent_gui.py`) to execute steps one by one, allowing the user to "Stop & Fix".
+   - **The Problem:**
+     - **Focus Stealing:** Clicking "Next" on the GUI closed dropdowns (Spotlight), breaking the flow.
+     - **Micro-Management:** Users hated clicking "Next" 20 times for a simple task.
+     - **Hotfix:** We tried grouping actions (open+type+enter), but the AI kept generating raw key presses instead of high-level tools.
+
+---
+
+2. WHY WE ARE SWITCHING (The "Lego" Philosophy)
+-----------------------------------------------
+We realized that **Linear Plans are Brittle**. They are like recording a macro. If one pixel changes, the macro breaks.
+
+**The Insight:**
+Human tasks are composed of reusable **Micro-Skills**.
+- "Play Gangnam Style" = [Open Browser] + [Go to URL] + [Search Video].
+- "Check Gmail" = [Open Browser] + [Go to URL] + [Click Inbox].
+
+We were saving the "Sentence". We need to save the "Words".
+
+---
+
+3. THE NEW ARCHITECTURE: "TOOLBOX AGENT"
+----------------------------------------
+
+### The Database (Supabase)
+Instead of a `skills` table with giant JSON blobs, we will have a `toolbox` table.
+- **Tool Name:** `search_youtube`
+- **Params:** `{"query": "string"}`
+- **Body:** `[{"action": "click", "text": "Search"}, {"action": "type", "text": "{query}"}...]`
+
+### The Workflow
+1.  **Decomposition:**
+    - User: "Play Tere Liye on YT"
+    - AI Router: "I see 2 tasks: `open_youtube` and `search_video(query='Tere Liye')`."
+2.  **Lookup:**
+    - AI checks DB: "Do I have `open_youtube`?" -> YES. "Do I have `search_video`?" -> NO.
+3.  **Assembly:**
+    - Plan = [Run `open_youtube` Macro] + [Generate New Steps for Search].
+4.  **Learning (The Magic):**
+    - After the "Search" part succeeds, we save *JUST THAT PART* as a new tool: `search_video`.
+    - Next time, the AI has both blocks.
+
+---
+
+4. BENEFITS & CHALLENGES
+------------------------
+
+### Benefits
+1.  **Reusability:** The `open_browser` tool is defined ONCE. If we fix it (e.g., add "Wait 3s"), it fixes *every* task that uses a browser.
+2.  **Speed:** The prompt is smaller. We only inject the *names* of available tools, not their full 20-step definitions. The AI just says `call_tool("open_youtube")`.
+3.  **Robustness:** If `open_youtube` works, we trust it. We only need to debug the new `search` part.
+
+### Challenges (Future Problems)
+1.  **Parameter Mapping:** The AI must intelligently map "Tere Liye" to the `{query}` variable in the stored tool. This requires a smarter prompt.
+2.  **Tool Collision:** What if we have `open_yt_brave` and `open_yt_chrome`? The Router needs to be smart enough to pick the right one based on context.
+3.  **Maintenance:** We need a way to "Update" a broken tool in the DB without creating duplicates.
+
+---
+
+5. NEXT STEPS
+-------------
+1. Create `toolbox_agent.py` (The new brain).
+2. Create `toolbox_db.py` (The new SQL handler).
+3. Test the " Decomposition -> Lookup -> Assembly " loop.

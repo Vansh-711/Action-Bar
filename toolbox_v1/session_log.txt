@@ -1,0 +1,59 @@
+SESSION STARTED: 2026-02-13 19:35:23.211184
+[19:35:47] ACTION: press_key | PARAMS: {'key': 'command+space', 'action': 'press_key'}
+   -> RESULT: SUCCESS | 
+[19:35:48] ACTION: wait | PARAMS: {'action': 'wait', 'seconds': 1.0}
+   -> RESULT: SUCCESS | 
+[19:35:50] ACTION: type_text | PARAMS: {'text': 'Brave', 'action': 'type_text'}
+   -> RESULT: SUCCESS | 
+[19:35:51] ACTION: wait | PARAMS: {'action': 'wait', 'seconds': 1.0}
+   -> RESULT: SUCCESS | 
+[19:35:52] ACTION: press_key | PARAMS: {'key': 'enter', 'action': 'press_key'}
+   -> RESULT: SUCCESS | 
+[19:35:53] ACTION: wait | PARAMS: {'action': 'wait', 'seconds': 5.0}
+   -> RESULT: SUCCESS | 
+[19:36:08] ACTION: wait | PARAMS: {'action': 'wait', 'seconds': 5}
+   -> RESULT: SUCCESS | 
+[19:36:13] ACTION: press_key | PARAMS: {'action': 'press_key', 'key': 'command+l'}
+   -> RESULT: SUCCESS | 
+[19:36:14] ACTION: wait | PARAMS: {'action': 'wait', 'seconds': 2}
+   -> RESULT: SUCCESS | 
+[19:36:17] ACTION: type_text | PARAMS: {'action': 'type_text', 'text': 'https://www.google.com'}
+   -> RESULT: SUCCESS | 
+[19:36:19] ACTION: wait | PARAMS: {'action': 'wait', 'seconds': 1}
+   -> RESULT: SUCCESS | 
+[19:36:21] ACTION: press_key | PARAMS: {'action': 'press_key', 'key': 'enter'}
+   -> RESULT: SUCCESS | 
+
+[USER FEEDBACK]: yt didn't opened
+[19:37:07] ACTION: type_text | PARAMS: {'action': 'type_text', 'text': 'zomato revenue'}
+   -> RESULT: SUCCESS | 
+[19:37:09] ACTION: press_key | PARAMS: {'action': 'press_key', 'key': 'enter'}
+   -> RESULT: SUCCESS | 
+[19:37:10] ACTION: wait | PARAMS: {'action': 'wait', 'seconds': 5}
+   -> RESULT: SUCCESS | 
+
+[USER FEEDBACK]: brave didn't opened
+[19:37:33] ACTION: open_app | PARAMS: {'action': 'open_app', 'name': 'Brave'}
+   -> RESULT: SUCCESS | 
+[19:37:34] ACTION: wait | PARAMS: {'action': 'wait', 'seconds': 5}
+   -> RESULT: SUCCESS | 
+
+[USER FEEDBACK]: brave didn't opened
+[19:37:55] ACTION: open_app | PARAMS: {'action': 'open_app', 'name': 'Chrome'}
+   -> RESULT: SUCCESS | 
+[19:38:10] ACTION: wait | PARAMS: {'action': 'wait', 'seconds': 5}
+   -> RESULT: SUCCESS | 
+
+[USER FEEDBACK]: brave didn't opened, try it using spotlight
+[19:38:39] ACTION: press_key | PARAMS: {'action': 'press_key', 'params': {'key': 'command+space'}}
+   -> RESULT: SUCCESS | 
+[19:38:40] ACTION: wait | PARAMS: {'action': 'wait', 'params': {'seconds': 1}}
+   -> RESULT: SUCCESS | 
+[19:38:42] ACTION: type_text | PARAMS: {'action': 'type_text', 'params': {'text': 'Safari'}}
+   -> RESULT: SUCCESS | 
+[19:38:43] ACTION: wait | PARAMS: {'action': 'wait', 'params': {'seconds': 0.5}}
+   -> RESULT: SUCCESS | 
+[19:38:43] ACTION: press_key | PARAMS: {'action': 'press_key', 'params': {'key': 'enter'}}
+   -> RESULT: SUCCESS | 
+[19:38:44] ACTION: wait | PARAMS: {'action': 'wait', 'params': {'seconds': 5}}
+   -> RESULT: SUCCESS | 
