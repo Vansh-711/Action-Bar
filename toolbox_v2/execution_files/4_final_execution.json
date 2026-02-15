@@ -1,0 +1,90 @@
+[
+  {
+    "key": "command+space",
+    "action": "press_key"
+  },
+  {
+    "action": "wait",
+    "seconds": 1.0
+  },
+  {
+    "text": "WhatsApp",
+    "action": "type_text"
+  },
+  {
+    "action": "wait",
+    "seconds": 1.0
+  },
+  {
+    "key": "enter",
+    "action": "press_key"
+  },
+  {
+    "action": "wait",
+    "seconds": 5.0
+  },
+  {
+    "action": "wait",
+    "seconds": 5
+  },
+  {
+    "action": "press_key",
+    "key": "command+f"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
+  },
+  {
+    "action": "type_text",
+    "text": "Sameer Pg College CSE"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
+  },
+  {
+    "action": "read_screen"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
+  },
+  {
+    "action": "click_text",
+    "text": "Sameer Pg College CSE"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
+  },
+  {
+    "action": "type_text",
+    "text": "hi there"
+  },
+  {
+    "action": "wait",
+    "seconds": 1
+  },
+  {
+    "action": "press_key",
+    "key": "enter"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
+  },
+  {
+    "action": "read_screen"
+  },
+  {
+    "action": "if_condition",
+    "condition": "hi there",
+    "true_actions": [
+      {
+        "action": "wait",
+        "seconds": 1
+      }
+    ]
+  }
+]

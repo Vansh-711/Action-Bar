@@ -1,0 +1,82 @@
+[
+  {
+    "action": "open_app",
+    "name": "Brave"
+  },
+  {
+    "action": "wait",
+    "seconds": 5
+  },
+  {
+    "action": "press_key",
+    "key": "command+l"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
+  },
+  {
+    "action": "type_text",
+    "text": "https://x.com/elonmusk"
+  },
+  {
+    "action": "press_key",
+    "key": "enter"
+  },
+  {
+    "action": "wait",
+    "seconds": 5
+  },
+  {
+    "action": "extract_info",
+    "description": "Elon Musk's follower count on X"
+  },
+  {
+    "action": "press_key",
+    "key": "command+space"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
+  },
+  {
+    "action": "type_text",
+    "text": "Notes"
+  },
+  {
+    "action": "wait",
+    "seconds": 1
+  },
+  {
+    "action": "press_key",
+    "key": "enter"
+  },
+  {
+    "action": "wait",
+    "seconds": 5
+  },
+  {
+    "action": "press_key",
+    "key": "command+n"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
+  },
+  {
+    "action": "type_text",
+    "text": "$LAST_READ"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
+  },
+  {
+    "action": "press_key",
+    "key": "command+s"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
+  }
+]

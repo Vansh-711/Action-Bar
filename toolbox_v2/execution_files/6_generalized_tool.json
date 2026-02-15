@@ -1,0 +1,95 @@
+{
+  "name": "open_app_and_send_message",
+  "description": "Opens the specified messaging application, searches for a contact, and sends a message.",
+  "parameters": [
+    "app",
+    "contact",
+    "message"
+  ],
+  "body": [
+    {
+      "action": "press_key",
+      "key": "command+space"
+    },
+    {
+      "action": "wait",
+      "seconds": 1
+    },
+    {
+      "action": "type_text",
+      "text": "{app}"
+    },
+    {
+      "action": "wait",
+      "seconds": 1
+    },
+    {
+      "action": "press_key",
+      "key": "enter"
+    },
+    {
+      "action": "wait",
+      "seconds": 5
+    },
+    {
+      "action": "press_key",
+      "key": "command+f"
+    },
+    {
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "action": "type_text",
+      "text": "{contact}"
+    },
+    {
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "action": "read_screen"
+    },
+    {
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "action": "click_text",
+      "text": "{contact}"
+    },
+    {
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "action": "type_text",
+      "text": "{message}"
+    },
+    {
+      "action": "wait",
+      "seconds": 1
+    },
+    {
+      "action": "press_key",
+      "key": "enter"
+    },
+    {
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "action": "read_screen"
+    },
+    {
+      "action": "if_condition",
+      "condition": "{message}",
+      "true_actions": [
+        {
+          "action": "wait",
+          "seconds": 1
+        }
+      ]
+    }
+  ]
+}
