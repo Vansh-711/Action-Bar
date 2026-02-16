@@ -1,62 +1,26 @@
 [
   {
-    "name": "save_follower_count_to_note",
-    "description": "Opens a browser, navigates to a given X profile URL, extracts the follower count, and saves it in a new note.",
+    "name": "open_app_spotlight",
+    "description": "Reliably opens any application using macOS Spotlight search.",
     "parameters": [
-      "query",
-      "url"
+      "app_name"
     ],
     "body": [
-      {
-        "name": "{browser}",
-        "action": "open_app"
-      },
-      {
-        "action": "wait",
-        "seconds": 5
-      },
-      {
-        "key": "command+l",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "text": "{url}",
-        "action": "type_text"
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 5
-      },
-      {
-        "action": "read_screen"
-      },
-      {
-        "action": "wait",
-        "seconds": 2
-      },
       {
         "key": "command+space",
         "action": "press_key"
       },
       {
         "action": "wait",
-        "seconds": 1
+        "seconds": 1.0
       },
       {
-        "text": "Notes",
+        "text": "{app_name}",
         "action": "type_text"
       },
       {
         "action": "wait",
-        "seconds": 1
+        "seconds": 1.0
       },
       {
         "key": "enter",
@@ -64,188 +28,7 @@
       },
       {
         "action": "wait",
-        "seconds": 5
-      },
-      {
-        "key": "command+n",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 2
-      },
-      {
-        "text": "{query}",
-        "action": "type_text"
-      },
-      {
-        "action": "wait",
-        "seconds": 2
-      },
-      {
-        "key": "command+tab",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "key": "command+q",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 2
-      }
-    ]
-  },
-  {
-    "name": "fetch_stock_price_and_save_note",
-    "description": "Opens a specified browser, navigates to a finance URL for a given query, extracts the stock price, and saves it in a new note.",
-    "parameters": [
-      "browser",
-      "url",
-      "query"
-    ],
-    "body": [
-      {
-        "name": "{browser}",
-        "action": "open_app"
-      },
-      {
-        "action": "wait",
-        "seconds": 5
-      },
-      {
-        "key": "command+l",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "text": "{url}",
-        "action": "type_text"
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 5
-      },
-      {
-        "action": "read_screen"
-      },
-      {
-        "key": "command+space",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "text": "Notes",
-        "action": "type_text"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 5
-      },
-      {
-        "key": "command+n",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 2
-      },
-      {
-        "text": "{{extracted_price}}",
-        "action": "type_text"
-      },
-      {
-        "action": "wait",
-        "seconds": 2
-      }
-    ]
-  },
-  {
-    "name": "search_nvidia_stock_and_earnings",
-    "description": "Open a browser, search Google for Nvidia stock price, then open a new tab and search YouTube for Nvidia earnings analysis.",
-    "parameters": [
-      "browser",
-      "google_url",
-      "youtube_url"
-    ],
-    "body": [
-      {
-        "name": "{browser}",
-        "action": "open_app"
-      },
-      {
-        "action": "wait",
-        "seconds": 5
-      },
-      {
-        "key": "command+l",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "text": "{google_url}",
-        "action": "type_text"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 5
-      },
-      {
-        "key": "command+t",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 2
-      },
-      {
-        "text": "{youtube_url}",
-        "action": "type_text"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 5
+        "seconds": 5.0
       }
     ]
   },
@@ -354,6 +137,269 @@
       {
         "action": "wait",
         "seconds": 5
+      }
+    ]
+  },
+  {
+    "name": "search_nvidia_stock_and_earnings",
+    "description": "Open a browser, search Google for Nvidia stock price, then open a new tab and search YouTube for Nvidia earnings analysis.",
+    "parameters": [
+      "browser",
+      "google_url",
+      "youtube_url"
+    ],
+    "body": [
+      {
+        "name": "{browser}",
+        "action": "open_app"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "key": "command+l",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "text": "{google_url}",
+        "action": "type_text"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "key": "enter",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "key": "command+t",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "text": "{youtube_url}",
+        "action": "type_text"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "key": "enter",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      }
+    ]
+  },
+  {
+    "name": "open_app_and_send_message",
+    "description": "Opens the specified messaging application, searches for a contact, and sends a message.",
+    "parameters": [
+      "app",
+      "contact",
+      "message"
+    ],
+    "body": [
+      {
+        "key": "command+space",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "text": "{app}",
+        "action": "type_text"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "key": "enter",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "key": "command+f",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "text": "{contact}",
+        "action": "type_text"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "read_screen"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "text": "{contact}",
+        "action": "click_text"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "text": "{message}",
+        "action": "type_text"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "key": "enter",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "read_screen"
+      },
+      {
+        "action": "if_condition",
+        "condition": "{message}",
+        "true_actions": [
+          {
+            "action": "wait",
+            "seconds": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "save_follower_count_to_note",
+    "description": "Opens a browser, navigates to a given X profile URL, extracts the follower count, and saves it in a new note.",
+    "parameters": [
+      "query",
+      "url"
+    ],
+    "body": [
+      {
+        "name": "{browser}",
+        "action": "open_app"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "key": "command+l",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "text": "{url}",
+        "action": "type_text"
+      },
+      {
+        "key": "enter",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "read_screen"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "key": "command+space",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "text": "Notes",
+        "action": "type_text"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "key": "enter",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "key": "command+n",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "text": "{query}",
+        "action": "type_text"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "key": "command+tab",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "key": "command+q",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
       }
     ]
   },
@@ -479,14 +525,16 @@
     ]
   },
   {
-    "name": "Open YouTube in Brave",
-    "description": "Opens a new tab in Brave and navigates to the specified YouTube URL.",
+    "name": "fetch_stock_price_and_save_note",
+    "description": "Opens a specified browser, navigates to a finance URL for a given query, extracts the stock price, and saves it in a new note.",
     "parameters": [
-      "url"
+      "browser",
+      "url",
+      "query"
     ],
     "body": [
       {
-        "name": "Brave",
+        "name": "{browser}",
         "action": "open_app"
       },
       {
@@ -494,67 +542,14 @@
         "seconds": 5
       },
       {
-        "key": "command+t",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 2
-      },
-      {
-        "text": "{url}",
-        "action": "type_text"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      }
-    ]
-  },
-  {
-    "name": "open_url_in_brave",
-    "description": "Opens the Brave browser, navigates to a specified URL, and opens the same URL in a new tab.",
-    "parameters": [
-      "url"
-    ],
-    "body": [
-      {
-        "key": "command+space",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "text": "Brave",
-        "action": "type_text"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 5
-      },
-      {
-        "action": "wait",
-        "seconds": 2
-      },
-      {
         "key": "command+l",
         "action": "press_key"
       },
       {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
         "text": "{url}",
         "action": "type_text"
       },
@@ -567,7 +562,34 @@
         "seconds": 5
       },
       {
-        "key": "command+t",
+        "action": "read_screen"
+      },
+      {
+        "key": "command+space",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "text": "Notes",
+        "action": "type_text"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "key": "enter",
+        "action": "press_key"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "key": "command+n",
         "action": "press_key"
       },
       {
@@ -575,180 +597,12 @@
         "seconds": 2
       },
       {
-        "text": "{url}",
+        "text": "{{extracted_price}}",
         "action": "type_text"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      }
-    ]
-  },
-  {
-    "name": "open_youtube_in_brave",
-    "description": "Opens the Brave browser, navigates to a given URL, then opens a new tab with the same URL.",
-    "parameters": [
-      "url"
-    ],
-    "body": [
-      {
-        "key": "command+space",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "text": "Brave",
-        "action": "type_text"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 5
       },
       {
         "action": "wait",
         "seconds": 2
-      },
-      {
-        "key": "command+l",
-        "action": "press_key"
-      },
-      {
-        "text": "{url}",
-        "action": "type_text"
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 5
-      },
-      {
-        "key": "command+space",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "text": "Brave",
-        "action": "type_text"
-      },
-      {
-        "action": "wait",
-        "seconds": 1
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 5
-      },
-      {
-        "action": "wait",
-        "seconds": 5
-      },
-      {
-        "key": "command+t",
-        "action": "press_key"
-      },
-      {
-        "text": "{url}",
-        "action": "type_text"
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 5
-      }
-    ]
-  },
-  {
-    "name": "open_youtube",
-    "description": "Opens the Brave browser and navigates to YouTube.",
-    "parameters": [],
-    "body": [
-      {
-        "name": "open_app_spotlight",
-        "action": "call_tool",
-        "params": {
-          "app_name": "Brave"
-        }
-      },
-      {
-        "action": "wait",
-        "seconds": 2.0
-      },
-      {
-        "key": "command+l",
-        "action": "press_key"
-      },
-      {
-        "text": "https://www.youtube.com",
-        "action": "type_text"
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 5.0
-      }
-    ]
-  },
-  {
-    "name": "open_app_spotlight",
-    "description": "Reliably opens any application using macOS Spotlight search.",
-    "parameters": [
-      "app_name"
-    ],
-    "body": [
-      {
-        "key": "command+space",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 1.0
-      },
-      {
-        "text": "{app_name}",
-        "action": "type_text"
-      },
-      {
-        "action": "wait",
-        "seconds": 1.0
-      },
-      {
-        "key": "enter",
-        "action": "press_key"
-      },
-      {
-        "action": "wait",
-        "seconds": 5.0
       }
     ]
   }

@@ -12,24 +12,11 @@ os.makedirs(STORAGE_DIR, exist_ok=True)
 class AgentCompiler:
     """
     Implements the V1.2 Multi-Stage Reasoning Pipeline.
-    Manages 1.json through 6.json.
+    Manages 1.json through 6.json via toolbox_logger.
     """
     def __init__(self):
         self.db = toolbox_db.ToolboxDB()
         self.model = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
-
-    def _save_json(self, filename, data):
-        path = os.path.join(STORAGE_DIR, filename)
-        with open(path, 'w') as f:
-            json.dump(data, f, indent=2)
-        return data
-
-    def _read_json(self, filename):
-        path = os.path.join(STORAGE_DIR, filename)
-        if os.path.exists(path):
-            with open(path, 'r') as f:
-                return json.load(f)
-        return None
 
     # --- STAGE 1: THE ARCHITECT ---
     def stage_1_main_breakdown(self, user_goal):
@@ -48,7 +35,7 @@ Example: ["Open Browser", "Search for Nvidia", "Extract Price", "Save to Notes"]
 """
         print("   🧠 [Stage 1] Breaking down task...")
         result = groq_brain.get_action_plan(prompt, model_id=self.model)
-        return self._save_json("1_main_breakdown.json", result)
+        return toolbox_logger.save_stage_file("1_main_breakdown.json", result)
 
     # --- STAGE 2: SEMANTIC EXPANSION ---
     def stage_2_semantic_search(self, user_goal):
@@ -62,12 +49,12 @@ Example: ["nvidia", "stock", "price", "notes", "finance", "fetch", "save"]
 """
         print("   🧠 [Stage 2] Generating search keywords...")
         result = groq_brain.get_action_plan(prompt, model_id=self.model)
-        return self._save_json("2_semantic_search.json", result)
+        return toolbox_logger.save_stage_file("2_semantic_search.json", result)
 
     # --- STAGE 3: TOOL RETRIEVAL (Python Logic) ---
     def stage_3_available_tools(self):
         """Queries the database using keywords from Stage 2."""
-        keywords_list = self._read_json("2_semantic_search.json")
+        keywords_list = toolbox_logger.read_stage_file("2_semantic_search.json")
         if not keywords_list: return []
 
         print("   🧠 [Stage 3] Querying SQL Database for relevant tools...")
@@ -76,17 +63,22 @@ Example: ["nvidia", "stock", "price", "notes", "finance", "fetch", "save"]
         
         # Also fetch bodies for these tools to make the next stage smarter
         detailed_tools = []
+        old_tools_names = []
         for t in matches:
             t["body"] = self.db.get_tool_body(t["name"])
             detailed_tools.append(t)
+            old_tools_names.append(t["name"])
 
-        return self._save_json("3_available_tools.json", detailed_tools)
+        # Log tool usage
+        toolbox_logger.log_tools_used(new_tools=[], old_tools=old_tools_names)
+
+        return toolbox_logger.save_stage_file("3_available_tools.json", detailed_tools)
 
     # --- STAGE 4: COMPOSITION ---
     def stage_4_final_execution(self, user_goal):
         """Composes and EXPANDS the final plan."""
-        breakdown = self._read_json("1_main_breakdown.json")
-        tools = self._read_json("3_available_tools.json")
+        breakdown = toolbox_logger.read_stage_file("1_main_breakdown.json")
+        tools = toolbox_logger.read_stage_file("3_available_tools.json")
         system_context = system_monitor.get_system_context_string()
 
         prompt = f"""USER GOAL: "{user_goal}"
@@ -96,15 +88,18 @@ AVAILABLE TOOLS: {json.dumps(tools)}
 
 YOUR TASK:
 Using the available tools and breakdown, create a final execution plan.
-- If a tool fits a step, use `call_tool("name", params={{...}})`.
-- If no tool fits, write the raw primitive steps (open_app, navigate, type_text, click_text, press_key, wait).
-- 🌐 NAVIGATION: Use `navigate(url="...")` for all website navigation. It is more robust than manual address bar typing.
-- 💎 DATA EXTRACTION: If you need to retrieve a specific value from the screen (e.g. a price), use `extract_info(description="the price of Nvidia")`. This is superior to `read_screen`.
-- 💎 DYNAMIC DATA: If you need to type information that was read/extracted from the screen, use the special variable "$LAST_READ".
+- 🚫 BROWSER SEARCH: NEVER use `command+f` inside a web browser (Brave/Chrome). It searches the HTML, not the app's messages. Use manual clicking or `click_near` instead.
+- 🎯 CONTEXTUAL CLICKING: NEVER use `click_text` for search results or contact names. ALWAYS use `click_near(target="...", anchor="...")`.
+- 🏢 ANCHORS: For Instagram/WhatsApp, use anchors like "Chats", "Messages", or "Direct" to find the correct contact link.
+- 💾 FILE SAVING SAFETY: macOS Save dialogs are slow. Always use `wait(2)` before typing a filename and `press_key("enter")` TWICE.
+- 🏗️ LINEARITY: Output a clean, linear list of actions.
+- 🌐 NAVIGATION: Use `navigate(url="...")` for all website navigation.
+- 💎 DATA EXTRACTION: Use `extract_info(description="...")`.
+- 💎 DYNAMIC DATA: Use "$LAST_READ" for typed information.
 - Example: 
   1. `{{"action": "navigate", "url": "https://google.com"}}`
-  2. `{{"action": "extract_info", "description": "the stock price"}}`
-  3. `{{"action": "type_text", "text": "The price is $LAST_READ"}}`
+  2. `{{"action": "click_near", "target": "Tim Cook", "anchor": "x.com"}}`
+  3. `{{"action": "extract_info", "description": "the stock price"}}`
 - ⛔ NO CUSTOM VARIABLES: Do NOT use `{{extracted_price}}`, `{{value}}`, or any other placeholders. 
 - ⛔ NO CURLY BRACES: Using `{{ }}` will cause an execution error.
 - Example: `{{"action": "type_text", "text": "The price is $LAST_READ"}}`
@@ -118,7 +113,7 @@ Output ONLY a JSON list of actions.
         print("   🔧 [Stage 4] Expanding tool calls into primitives...")
         expanded_plan = self.expand_plan_recursive(raw_plan, tools)
         
-        return self._save_json("4_final_execution.json", expanded_plan)
+        return toolbox_logger.save_stage_file("4_final_execution.json", expanded_plan)
 
     def expand_plan_recursive(self, plan, tools_list):
         """Recursively flattens call_tool into primitive actions."""
@@ -133,7 +128,8 @@ Output ONLY a JSON list of actions.
             
             action = step.get("action")
             if action == "call_tool":
-                tool_name = step.get("name")
+                # Be flexible: check 'name' or 'tool'
+                tool_name = step.get("name") or step.get("tool")
                 params = step.get("params", {})
                 
                 if tool_name in tool_map:
@@ -158,31 +154,39 @@ Output ONLY a JSON list of actions.
     # --- STAGE 5: SURGICAL FIX ---
     def stage_5_surgical_fix(self, user_goal, feedback, steps_done):
         """Generates a corrective plan based on feedback."""
-        full_plan = self._read_json("4_final_execution.json")
-        tools = self._read_json("3_available_tools.json")
+        full_plan = toolbox_logger.read_stage_file("4_final_execution.json")
+        tools = toolbox_logger.read_stage_file("3_available_tools.json")
         
         prompt = f"""### 🎯 MAIN GOAL: "{user_goal}"
 ### 📋 PREVIOUS PLAN: {json.dumps(full_plan)}
 ### 🟢 COMPLETED STEPS: {json.dumps(steps_done)}
-### 🔴 ERROR FACED: "{feedback}"
+### 🔴 ERROR/USER FEEDBACK: "{feedback}"
 ### 🧰 AVAILABLE TOOLS: {json.dumps(tools)}
 
 YOUR TASK:
-Refer to the original plan and the error. What should be done to make the execution successful?
-- 🏗️ LINEARITY: Output a clean, linear list of actions. Avoid `if_condition` or nesting if possible.
+Refer to the original plan and the feedback. You MUST fix the error.
+- 🧱 MANDATORY FEEDBACK: You MUST follow the User Feedback word-for-word. If they said "open brave", you CANNOT use "Chrome".
+- 🏗️ FULL SEQUENCE: Output the FULL corrected plan from start to finish.
+- 🏢 APP CONSISTENCY: ALWAYS use the same browser/apps mentioned in the feedback or the original successful steps.
+- 🚫 BROWSER SEARCH: NEVER use `command+f` in a browser.
+- 🎯 CONTEXTUAL CLICKING: NEVER use `click_text` for search results. ALWAYS use `click_near(target="...", anchor="...")`.
+- 🏗️ LINEARITY: Output a clean, linear list of actions.
 - 🌐 NAVIGATION: Use `navigate(url="...")` for all website navigation.
-- 💎 DATA EXTRACTION: If you need to retrieve a specific value from the screen (e.g. a price), use `extract_info(description="the price of Nvidia")`. This is superior to `read_screen`.
-- 💎 DYNAMIC DATA: If you need to type information read from the screen, use "$LAST_READ".
-- ⛔ NO CUSTOM VARIABLES: Do NOT use `{{extracted_price}}`, `{{value}}`, or any other placeholders. 
+- 💎 DATA EXTRACTION: Use `extract_info(description="...")`.
+- 💎 DYNAMIC DATA: Use "$LAST_READ" for typed data.
 - Output ONLY a JSON list.
 """
         print("   🧠 [Stage 5] Generating surgical fix...")
         result = groq_brain.get_action_plan(prompt, model_id=self.model)
-        return self._save_json("5_surgical_fix.json", result)
+        return toolbox_logger.save_stage_file("5_surgical_fix.json", result)
 
     # --- STAGE 6: GENERALIZATION ---
     def stage_6_generalize(self, user_goal, successful_trace):
         """Cleans up and parameterizes the successful plan for SQL."""
+        if not successful_trace:
+            print("   ⚠️  Stage 6 Skipped: No successful steps to learn from.")
+            return None
+
         prompt = f"""### User Goal: "{user_goal}"
 ### Successful Trace: {json.dumps(successful_trace)}
 
@@ -191,7 +195,7 @@ YOUR TASK:
 2. Create a generalized Tool definition.
 3. Replace names with placeholders like `{{query}}`, `{{browser}}`, `{{url}}`.
 4. ⛔ STABILITY: Remove any "Trial and Error" steps. Only keep the final successful sequence.
-5. ⛔ CLEANLINESS: Ensure the 'body' actions contain NO commentary or extra text like "expected price". 
+5. ⛔ CLEANLINESS: Ensure the 'body' actions contain NO commentary or extra text. 
 
 Output JSON Format:
 {{
@@ -204,10 +208,13 @@ Output JSON Format:
         print("   🧠 [Stage 6] Generalizing tool for SQL storage...")
         result = groq_brain.get_action_plan(prompt, model_id=self.model)
         
-        if result and "name" in result:
+        if result and isinstance(result, dict) and "name" in result:
+            print(f"   ✨ Stage 6 Success: Generalizing as tool '{result['name']}'")
             self.db.save_tool(result["name"], result["description"], result.get("parameters", []), result["body"])
+        else:
+            print(f"   ❌ Stage 6 Failure: Model returned invalid generalization format: {result}")
             
-        return self._save_json("6_generalized_tool.json", result)
+        return toolbox_logger.save_stage_file("6_generalized_tool.json", result)
 
 if __name__ == "__main__":
     # Test sequence

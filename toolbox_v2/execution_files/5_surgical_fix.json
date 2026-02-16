@@ -1,23 +1,19 @@
 [
   {
-    "action": "open_app",
-    "name": "Brave"
-  },
-  {
-    "action": "wait",
-    "seconds": 5
-  },
-  {
     "action": "press_key",
-    "key": "command+l"
+    "key": "command+space"
   },
   {
     "action": "wait",
-    "seconds": 2
+    "seconds": 1
   },
   {
     "action": "type_text",
-    "text": "https://x.com/elonmusk"
+    "text": "Brave"
+  },
+  {
+    "action": "wait",
+    "seconds": 1
   },
   {
     "action": "press_key",
@@ -28,8 +24,40 @@
     "seconds": 5
   },
   {
+    "action": "navigate",
+    "url": "https://www.google.com"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
+  },
+  {
+    "action": "type_text",
+    "text": "Tim Cook Twitter"
+  },
+  {
+    "action": "press_key",
+    "key": "enter"
+  },
+  {
+    "action": "wait",
+    "seconds": 5
+  },
+  {
+    "action": "click_text",
+    "text": "Tim Cook (@tim_cook)"
+  },
+  {
+    "action": "wait",
+    "seconds": 5
+  },
+  {
     "action": "extract_info",
-    "description": "Elon Musk's follower count on X"
+    "description": "Tim Cook's Twitter bio"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
   },
   {
     "action": "press_key",
@@ -37,7 +65,7 @@
   },
   {
     "action": "wait",
-    "seconds": 2
+    "seconds": 1
   },
   {
     "action": "type_text",
@@ -65,15 +93,19 @@
   },
   {
     "action": "type_text",
-    "text": "$LAST_READ"
-  },
-  {
-    "action": "wait",
-    "seconds": 2
+    "text": "Apple CEO Bio"
   },
   {
     "action": "press_key",
-    "key": "command+s"
+    "key": "enter"
+  },
+  {
+    "action": "wait",
+    "seconds": 1
+  },
+  {
+    "action": "type_text",
+    "text": "$LAST_READ"
   },
   {
     "action": "wait",

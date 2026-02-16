@@ -1,0 +1,189 @@
+{
+  "name": "save_stock_prices",
+  "description": "Open a browser, retrieve stock prices for given symbols, and save them to a text file on the Desktop.",
+  "parameters": [
+    "query",
+    "url"
+  ],
+  "body": [
+    {
+      "action": "open_app",
+      "name": "TextEdit"
+    },
+    {
+      "action": "wait",
+      "seconds": 5
+    },
+    {
+      "action": "press_key",
+      "key": "command+n"
+    },
+    {
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "action": "open_app",
+      "name": "{url}"
+    },
+    {
+      "action": "wait",
+      "seconds": 5
+    },
+    {
+      "action": "read_screen"
+    },
+    {
+      "action": "press_key",
+      "key": "command+tab"
+    },
+    {
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "action": "type_text",
+      "text": "{query}: {price}\\n"
+    },
+    {
+      "action": "wait",
+      "seconds": 1
+    },
+    {
+      "action": "open_app",
+      "name": "{url}"
+    },
+    {
+      "action": "wait",
+      "seconds": 5
+    },
+    {
+      "action": "read_screen"
+    },
+    {
+      "action": "press_key",
+      "key": "command+tab"
+    },
+    {
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "action": "type_text",
+      "text": "{query}: {price}\\n"
+    },
+    {
+      "action": "wait",
+      "seconds": 1
+    },
+    {
+      "action": "open_app",
+      "name": "{url}"
+    },
+    {
+      "action": "wait",
+      "seconds": 5
+    },
+    {
+      "action": "read_screen"
+    },
+    {
+      "action": "press_key",
+      "key": "command+tab"
+    },
+    {
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "action": "type_text",
+      "text": "{query}: {price}\\n"
+    },
+    {
+      "action": "wait",
+      "seconds": 1
+    },
+    {
+      "action": "open_app",
+      "name": "{url}"
+    },
+    {
+      "action": "wait",
+      "seconds": 5
+    },
+    {
+      "action": "read_screen"
+    },
+    {
+      "action": "press_key",
+      "key": "command+tab"
+    },
+    {
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "action": "type_text",
+      "text": "{query}: {price}\\n"
+    },
+    {
+      "action": "wait",
+      "seconds": 1
+    },
+    {
+      "action": "open_app",
+      "name": "{url}"
+    },
+    {
+      "action": "wait",
+      "seconds": 5
+    },
+    {
+      "action": "read_screen"
+    },
+    {
+      "action": "press_key",
+      "key": "command+tab"
+    },
+    {
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "action": "type_text",
+      "text": "{query}: {price}\\n"
+    },
+    {
+      "action": "wait",
+      "seconds": 1
+    },
+    {
+      "action": "press_key",
+      "key": "command+s"
+    },
+    {
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "action": "type_text",
+      "text": "~/Desktop/stock_prices.txt"
+    },
+    {
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "action": "press_key",
+      "key": "enter"
+    },
+    {
+      "action": "wait",
+      "seconds": 1
+    },
+    {
+      "action": "press_key",
+      "key": "command+q"
+    }
+  ]
+}

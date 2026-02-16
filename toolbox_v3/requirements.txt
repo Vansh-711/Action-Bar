@@ -1,0 +1,12 @@
+groq
+python-dotenv
+pyautogui
+Pillow
+pytesseract
+pyobjc-framework-ApplicationServices
+pyobjc-framework-Cocoa
+pyobjc-framework-Quartz
+opencv-python
+numpy
+supabase
+pyperclip

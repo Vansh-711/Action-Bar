@@ -8,7 +8,71 @@
     "seconds": 1.0
   },
   {
-    "text": "WhatsApp",
+    "text": "Brave",
+    "action": "type_text"
+  },
+  {
+    "action": "wait",
+    "seconds": 1.0
+  },
+  {
+    "key": "enter",
+    "action": "press_key"
+  },
+  {
+    "action": "wait",
+    "seconds": 5.0
+  },
+  {
+    "action": "wait",
+    "seconds": 5
+  },
+  {
+    "action": "navigate",
+    "url": "https://www.google.com"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
+  },
+  {
+    "action": "type_text",
+    "text": "Tim Cook Twitter"
+  },
+  {
+    "action": "press_key",
+    "key": "enter"
+  },
+  {
+    "action": "wait",
+    "seconds": 5
+  },
+  {
+    "action": "click_text",
+    "text": "Tim Cook (@tim_cook)"
+  },
+  {
+    "action": "wait",
+    "seconds": 5
+  },
+  {
+    "action": "extract_info",
+    "description": "Tim Cook's Twitter bio"
+  },
+  {
+    "action": "wait",
+    "seconds": 2
+  },
+  {
+    "key": "command+space",
+    "action": "press_key"
+  },
+  {
+    "action": "wait",
+    "seconds": 1.0
+  },
+  {
+    "text": "Notes",
     "action": "type_text"
   },
   {
@@ -29,7 +93,7 @@
   },
   {
     "action": "press_key",
-    "key": "command+f"
+    "key": "command+n"
   },
   {
     "action": "wait",
@@ -37,34 +101,7 @@
   },
   {
     "action": "type_text",
-    "text": "Sameer Pg College CSE"
-  },
-  {
-    "action": "wait",
-    "seconds": 2
-  },
-  {
-    "action": "read_screen"
-  },
-  {
-    "action": "wait",
-    "seconds": 2
-  },
-  {
-    "action": "click_text",
-    "text": "Sameer Pg College CSE"
-  },
-  {
-    "action": "wait",
-    "seconds": 2
-  },
-  {
-    "action": "type_text",
-    "text": "hi there"
-  },
-  {
-    "action": "wait",
-    "seconds": 1
+    "text": "Apple CEO Bio"
   },
   {
     "action": "press_key",
@@ -72,19 +109,14 @@
   },
   {
     "action": "wait",
+    "seconds": 1
+  },
+  {
+    "action": "type_text",
+    "text": "$LAST_READ"
+  },
+  {
+    "action": "wait",
     "seconds": 2
-  },
-  {
-    "action": "read_screen"
-  },
-  {
-    "action": "if_condition",
-    "condition": "hi there",
-    "true_actions": [
-      {
-        "action": "wait",
-        "seconds": 1
-      }
-    ]
   }
 ]

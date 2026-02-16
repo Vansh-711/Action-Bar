@@ -6,6 +6,7 @@ import sys
 import pytesseract
 from PIL import Image
 import groq_brain
+import spatial_vision # NEW
 
 # Safety
 pyautogui.FAILSAFE = True
@@ -140,6 +141,11 @@ def execute_step(action, params, context=None):
             print(f"   ❌ Failed to find text: {text}")
             return False
 
+        elif action == "click_near":
+            target = params.get("target")
+            anchor = params.get("anchor")
+            return spatial_vision.click_near(target, anchor)
+
         elif action == "press_key":
             key = params.get("key", "").lower()
             print(f"   🎹 Pressing: {key}")
@@ -179,29 +185,41 @@ def execute_step(action, params, context=None):
 
         elif action == "extract_info":
             description = params.get("description", "the main value")
-            print(f"   🧠 [POWER] Extracting: {description} (using 120B model)...")
+            print(f"   🧠 [POWER] Extracting: {description} (Advanced Mode)...")
             
-            # 1. Get raw text
+            # METHOD 1: Clipboard Fallback (with Dirty Check)
+            import pyperclip
+            pyperclip.copy("") # 1. Clear clipboard
+            
+            print("      📋 Attempting Clipboard extraction...")
+            pyautogui.hotkey('command', 'c')
+            time.sleep(0.7) # Wait for OS to copy
+            
+            val_str = pyperclip.paste().strip()
+            
+            # 2. Only accept if clipboard actually got something NEW
+            if val_str and len(val_str) < 100: 
+                print(f"      ✨ Clipboard Success: {val_str}")
+                if context is not None: context["last_read"] = val_str
+                return True
+            else:
+                print("      ⏩ Clipboard empty/unchanged. Falling back to AI Vision...")
+
+            # METHOD 2: Advanced AI Filtering (The 120B Precision)
             screenshot = pyautogui.screenshot()
             raw_text = pytesseract.image_to_string(screenshot)
             
-            # 2. Ask precision AI to filter
             filter_prompt = f"""
             RAW OCR TEXT:
             ---
             {raw_text}
             ---
-            
-            TASK: Extract {description} from the text above.
-            RULES:
-            - Output ONLY the value (e.g. "96,432.10" or "45°F").
-            - DO NOT output sentences, labels, or extra words.
-            - If not found, output "Not Found".
+            TASK: Extract {description} from the text above. 
+            RULES: Output ONLY the numeric value or specific string. No labels.
             """
-            # Use get_raw_text for simple string extraction
             val_str = groq_brain.get_raw_text(filter_prompt, model_id="openai/gpt-oss-120b")
             
-            print(f"   ✨ Extracted Value: {val_str}")
+            print(f"   ✨ AI Extracted Value: {val_str}")
             if context is not None:
                 context["last_read"] = val_str
             return True

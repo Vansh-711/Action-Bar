@@ -1,8 +1,11 @@
 [
-  "Open WhatsApp",
-  "Search for contact \"Sameer Pg College CSE\"",
-  "Select the contact from the results",
-  "Type the message \"hi there\"",
-  "Send the message",
-  "Verify the message was sent"
+  "Open web browser",
+  "Navigate to Google homepage",
+  "Search for \"Tim Cook Twitter\"",
+  "Open Tim Cook's Twitter profile from search results",
+  "Read and copy the bio text from the profile",
+  "Open the Notes application",
+  "Create a new note titled \"Apple CEO Bio\"",
+  "Paste the copied bio into the note",
+  "Save the note"
 ]
