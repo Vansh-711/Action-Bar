@@ -17,3 +17,4 @@ __pycache__/
 *.engine
 *.bin
 main_brain_model/
+toolbox_v4/web/assets/js/env.js

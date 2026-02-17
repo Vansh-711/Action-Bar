@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>AI Agent V3 - Cloud Control</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+        <!-- Supabase CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        
+        <style>
+            /* Simple Terminal Styling */
+            #terminal-window {
+                background-color: #0d0d0d;
+                border: 1px solid #333;
+                border-radius: 6px;
+                padding: 15px;
+                font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+                font-size: 0.9em;
+                color: #00ff41;
+                height: 300px;
+                overflow-y: auto;
+                margin-top: 20px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+                display: none; /* Hidden by default */
+            }
+            .log-entry {
+                margin-bottom: 2px;
+                border-bottom: 1px solid #1a1a1a;
+                padding-bottom: 2px;
+            }
+            .log-timestamp {
+                color: #555;
+                margin-right: 10px;
+                font-size: 0.8em;
+            }
+        </style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Sidebar -->
+			<section id="sidebar">
+				<div class="inner">
+					<nav>
+						<ul>
+							<li><a href="#intro">Welcome</a></li>
+							<li><a href="#one">Technology</a></li>
+							<li><a href="#two">Dashboard</a></li>
+						</ul>
+					</nav>
+				</div>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Intro -->
+					<section id="intro" class="wrapper style1 fullscreen fade-up">
+						<div class="inner">
+							<h1>AI Agent V3</h1>
+							<p>The first context-aware desktop agent controlled entirely from the cloud.<br />
+							Powered by 120B Reasoning Models and Spatial Vision.</p>
+							<ul class="actions">
+								<li><a href="#two" class="button scrolly" onclick="triggerLogin()">Login / Sign Up</a></li>
+							</ul>
+						</div>
+					</section>
+
+				<!-- One -->
+					<section id="one" class="wrapper style2 spotlights">
+						<section>
+							<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="center center" /></a>
+							<div class="content">
+								<div class="inner">
+									<h2>Reasoning Engine</h2>
+									<p>Uses a multi-stage reasoning pipeline (V3) to break down complex goals into executable primitives. It doesn't just click; it plans.</p>
+								</div>
+							</div>
+						</section>
+						<section>
+							<a href="#" class="image"><img src="images/pic02.jpg" alt="" data-position="top center" /></a>
+							<div class="content">
+								<div class="inner">
+									<h2>Spatial Vision</h2>
+									<p>Understands "next to", "below", and "near". Our new OCR engine filters out system overlays (HUDs) to interact only with your work.</p>
+								</div>
+							</div>
+						</section>
+						<section>
+							<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
+							<div class="content">
+								<div class="inner">
+									<h2>Cloud Bridge</h2>
+									<p>Securely trigger actions on your local machine from this website. No port forwarding required.</p>
+								</div>
+							</div>
+						</section>
+					</section>
+
+				<!-- Two (Dashboard) -->
+					<section id="two" class="wrapper style3 fade-up">
+						<div class="inner">
+							<h2>Agent Dashboard</h2>
+							<p>Manage your local instance.</p>
+                            
+                            <!-- Login Wall -->
+                            <div id="login-message">
+                                <p>Please <a href="javascript:void(0);" onclick="triggerLogin()">Login</a> to access the control panel.</p>
+                            </div>
+
+                            <!-- Controls (Hidden until Login) -->
+							<div class="features" id="dashboard-controls" style="display: none;">
+								<section>
+									<span class="icon solid major fa-wifi"></span>
+									<h3>Status</h3>
+									<p id="agent-status" style="color: #ff4500; font-weight: bold;">🔴 OFFLINE</p>
+								</section>
+								<section>
+									<span class="icon solid major fa-download"></span>
+									<h3>Step 1: Install</h3>
+									<p>Download the V3 Agent Pack.</p>
+                                    <ul class="actions">
+                                        <li><a href="#" class="button small">Download Zip</a></li>
+                                    </ul>
+								</section>
+								<section>
+									<span class="icon solid major fa-power-off"></span>
+									<h3>Step 2: Launch</h3>
+									<p>Trigger the local agent remotely.</p>
+                                    <ul class="actions">
+                                        <li><button class="button primary" onclick="startAgent()">🚀 START AGENT</button></li>
+                                    </ul>
+								</section>
+							</div>
+                            
+                            <!-- Live Terminal (Hidden until Start) -->
+                            <div id="terminal-window">
+                                <div class="log-entry">> Waiting for agent connection...</div>
+                            </div>
+                            
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper style1-alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Toolbox V3. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+            
+            <!-- Logic -->
+            <!-- Load dynamic config generated by Python -->
+            <script src="assets/js/env.js"></script>
+            <script>
+                // --- CONFIGURATION ---
+                if (!window.ENV) {
+                    alert("Config Missing! Please run remote_listener.py first.");
+                    throw new Error("Missing env.js");
+                }
+                const SUPABASE_URL = window.ENV.SUPABASE_URL;
+                const SUPABASE_KEY = window.ENV.SUPABASE_KEY;
+                // ---------------------
+
+                // RENAME CLIENT TO AVOID CONFLICT WITH GLOBAL 'supabase' OBJECT
+                const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                let user = null;
+
+                async function triggerLogin() {
+                    // Demo: Just fake login for prototype
+                    console.log("Simulating Login...");
+                    user = { email: "demo@user.com" };
+                    updateUI();
+                }
+
+                function updateUI() {
+                    if (user) {
+                        document.getElementById('login-message').style.display = 'none';
+                        document.getElementById('dashboard-controls').style.display = 'flex';
+                        
+                        // Start listening for heartbeat
+                        subscribeToAgentStatus();
+                    }
+                }
+
+                async function startAgent() {
+                    if (!user) return alert("Please login first.");
+                    
+                    const btn = document.querySelector("button.primary");
+                    btn.innerHTML = "⏳ TRIGGERING...";
+                    
+                    // Show Terminal
+                    const term = document.getElementById('terminal-window');
+                    term.style.display = 'block';
+                    term.innerHTML += '<div class="log-entry">> Sending START signal...</div>';
+                    
+                    // Send command to DB
+                    const { error } = await supabaseClient
+                        .from('agent_commands')
+                        .insert({ command: 'START', user_email: user.email });
+
+                    if (error) {
+                        alert("Error: " + error.message);
+                        btn.innerHTML = "🚀 START AGENT";
+                    } else {
+                        btn.innerHTML = "✅ SIGNAL SENT";
+                        
+                        // Start Listening for Logs!
+                        subscribeToAgentLogs();
+                        
+                        setTimeout(() => { btn.innerHTML = "🚀 START AGENT"; }, 3000);
+                    }
+                }
+
+                function subscribeToAgentStatus() {
+                    // Listen for status updates (simple ping)
+                     const channel = supabaseClient.channel('public:agent_status')
+                        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'agent_status' }, payload => {
+                            const statusEl = document.getElementById('agent-status');
+                            if (payload.new.status === 'ONLINE') {
+                                statusEl.innerHTML = "🟢 ONLINE";
+                                statusEl.style.color = "#32CD32";
+                            }
+                        })
+                        .subscribe();
+                }
+
+                function subscribeToAgentLogs() {
+                    console.log("Subscribing to Agent Logs...");
+                    const term = document.getElementById('terminal-window');
+                    
+                    const channel = supabaseClient.channel('public:agent_logs')
+                        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'agent_logs' }, payload => {
+                            // Append new log line
+                            const msg = payload.new.log_message;
+                            const time = new Date(payload.new.timestamp * 1000).toLocaleTimeString();
+                            
+                            const div = document.createElement('div');
+                            div.className = 'log-entry';
+                            div.innerHTML = `<span class="log-timestamp">[${time}]</span> ${msg}`;
+                            
+                            term.appendChild(div);
+                            term.scrollTop = term.scrollHeight; // Auto-scroll
+                        })
+                        .subscribe();
+                }
+            </script>
+
+	</body>
+</html>

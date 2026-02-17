@@ -1,0 +1,1 @@
+window.ENV = { SUPABASE_URL: "https://grphqnjkdeouqjhojodx.supabase.co", SUPABASE_KEY: "sb_publishable_K3hvQa60uFRioFYLB7Fwyg_KnATho2l" };
